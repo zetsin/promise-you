@@ -9,7 +9,7 @@ Install with:
 
 * overwrite `.then` by default
 ```js
-let PromiseYou = require('../')
+const PromiseYou = require('../')
 PromiseYou()
 
 new Promise((resolve, reject) => {
