@@ -1,8 +1,8 @@
-function promiseYou (name = 'promise') {
-  delete Promise.prototype[Promise.YOU]
+const Then = Promise.prototype.then
 
+function promiseYou (name = 'then') {
   Promise.prototype[name] = function (scb, fcb) {
-    return this.then((arg) => {
+    return Then.call(this, (arg) => {
       return new Promise((resolve, reject) => {
         return scb(arg, resolve, reject)
       })
@@ -10,7 +10,7 @@ function promiseYou (name = 'promise') {
   }
 
   Promise.YOU = name
+  return promiseYou
 }
-promiseYou()
 
 module.exports = promiseYou
