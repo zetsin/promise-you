@@ -1,4 +1,4 @@
-let PromiseYou = require('../')
+const PromiseYou = require('../')
 
 // overwrite 'then' by default
 PromiseYou()
