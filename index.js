@@ -6,11 +6,10 @@ function promiseYou (name = 'then') {
       return new Promise((resolve, reject) => {
         let cb = scb(arg, resolve, reject)
         if(cb instanceof Promise) {
-        	cb.then(resolve).catch(reject)
+            return cb.then(resolve).catch(reject)
         }
-        else {
-        	return cb
-        }
+        
+        return cb
       })
     }, fcb)
   }
