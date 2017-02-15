@@ -9,12 +9,17 @@ new Promise((resolve, reject) => {
 .then((arg, resolve, reject) => {
   console.log(arg)
 
-  setTimeout(() => resolve(2), 1000)
+  return Promise.resolve(2)
 })
 .then((arg, resolve, reject) => {
   console.log(arg)
 
   setTimeout(() => resolve(3), 1000)
+})
+.then((arg, resolve, reject) => {
+  console.log(arg)
+
+  setTimeout(() => resolve(4), 1000)
 })
 .then(arg => {
   console.log(arg)
@@ -27,17 +32,22 @@ new Promise((resolve, reject) => {
 PromiseYou('promise')
 
 new Promise((resolve, reject) => {
-  resolve(4)
+  resolve(5)
+})
+.then((arg, resolve, reject) => {
+  console.log(arg)
+
+  return Promise.resolve(6)
 })
 .promise((arg, resolve, reject) => {
   console.log(arg)
 
-  setTimeout(() => resolve(5), 1000)
+  setTimeout(() => resolve(7), 1000)
 })
 .promise((arg, resolve, reject) => {
   console.log(arg)
 
-  setTimeout(() => resolve(6), 1000)
+  setTimeout(() => resolve(8), 1000)
 })
 .then(arg => {
   console.log(arg)
