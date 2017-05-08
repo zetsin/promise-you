@@ -10,51 +10,40 @@ Install with:
 * overwrite `.then` by default
 ```js
 const PromiseYou = require('../')
-PromiseYou()
 
 new Promise((resolve, reject) => {
   resolve(1)
 })
-.then((arg, resolve, reject) => {
-  console.log(arg)
+.then((arg, you) => {
+  // with argument 'you', it's wrapped in another Promise
+  // must call 'you.resolve' to be continued
+  console.log(arg, you)
+  you.test = 1
 
-  setTimeout(() => resolve(2), 1000)
+  setTimeout(() => you.resolve(2), 1000)
 })
-.then((arg, resolve, reject) => {
-  console.log(arg)
+.then((arg, you) => {
+  // or return a new Promise to be continued
+  console.log(arg, you)
 
-  setTimeout(() => resolve(3), 1000)
+  return Promise.resolve(3)
 })
-.then(arg => {
-  console.log(arg)
-})
-.catch(err => {
-  console.log(err)
-})
-```
-
-* use a new function name
-```js
-PromiseYou('promise')
-
-new Promise((resolve, reject) => {
-  resolve(4)
-})
-.promise((arg, resolve, reject) => {
-  console.log(arg)
-
-  setTimeout(() => resolve(5), 1000)
-})
-.promise((arg, resolve, reject) => {
-  console.log(arg)
-
-  setTimeout(() => resolve(6), 1000)
-})
-.then(arg => {
+.then((arg) => {
+  // without argument 'you', it's like in a normal 'then'
   console.log(arg)
 })
-.catch(err => {
-  console.log(err)
+.then((arg, you) => {
+  // also can call 'you.reject'
+  console.log(arg, you)
+  you.reject(4)
 })
-
+.catch((err, you) => {
+  // after catch, we can resolve again
+  console.log(err, you)
+  you.resolve(5)
+})
+.then((arg, you) => {
+  // read all 'arg' values in 'you.args' array
+  console.log('end', you.args)
+})
 ```
